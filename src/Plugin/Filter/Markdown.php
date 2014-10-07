@@ -8,6 +8,7 @@
 namespace Drupal\markdown\Plugin\Filter;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\filter\Plugin\FilterBase;
 use Drupal\filter\FilterProcessResult;
 use Michelf\MarkdownExtra;
@@ -36,7 +37,7 @@ class Markdown extends FilterBase {
       '#title' => $this->t('Markdown'),
     );
     $links = array(
-      'Markdown PHP Lib Version: ' . l($library['version'], $library['vendor url']),
+      'Markdown PHP Lib Version: ' . \Drupal::l($library['version'], Url::fromUri($library['vendor url'])),
     );
     $form['markdown_wrapper']['markdown_status'] = array(
       '#title' => $this->t('Versions'),
@@ -73,7 +74,7 @@ class Markdown extends FilterBase {
       </ul>For complete details on the Markdown syntax, see the <a href="http://daringfireball.net/projects/markdown/syntax">Markdown documentation</a> and <a href="http://michelf.com/projects/php-markdown/extra/">Markdown Extra documentation</a> for tables, footnotes, and more.');
     }
     else {
-      return t('You can use <a href="@filter_tips">Markdown syntax</a> to format and style the text. Also see <a href="@markdown_extra">Markdown Extra</a> for tables, footnotes, and more.', array('@filter_tips' => url('filter/tips'), '@markdown_extra' => 'http://michelf.com/projects/php-markdown/extra/'));
+      return t('You can use <a href="@filter_tips">Markdown syntax</a> to format and style the text. Also see <a href="@markdown_extra">Markdown Extra</a> for tables, footnotes, and more.', array('@filter_tips' => \Drupal::url('filter.tips'), '@markdown_extra' => 'http://michelf.com/projects/php-markdown/extra/'));
     }
   }
 
